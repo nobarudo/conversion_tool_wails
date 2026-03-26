@@ -1,12 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>conversion_tool_wails</title>
-</head>
-<body>
-<div id="app"></div>
-<script src="./src/main.js" type="module"></script>
-</body>
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <title>conversion_tool_wails</title>
+        <link rel="stylesheet" href="./src/style.css" />
+    </head>
+    <body>
+        <div id="app">
+            <div class="controls">
+                <select id="modeSelect">
+                    <option value="0">URL</option>
+                    <option value="1">Base64</option>
+                    <option value="2">HTML</option>
+                    <option value="3">Base64→URL(デコードはURL→Base64)</option>
+                </select>
+                <button id="btnEncode">エンコード</button>
+                <button id="btnDecode">デコード</button>
+                <button id="btnClear">クリア</button>
+            </div>
+
+            <div class="text-areas">
+                <textarea
+                    id="inTE"
+                    placeholder="ここに入力してください..."
+                ></textarea>
+                <textarea
+                    id="outTE"
+                    placeholder="結果がここに表示されます..."
+                    readonly
+                ></textarea>
+            </div>
+        </div>
+
+        <script type="module" src="./src/main.js"></script>
+    </body>
 </html>

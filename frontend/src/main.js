@@ -1,43 +1,34 @@
-import './style.css';
-import './app.css';
+// Wailsが自動生成したGoのバインディング関数をインポート
+import { Encode, Decode } from "../wailsjs/go/main/App";
 
-import logo from './assets/images/logo-universal.png';
-import {Greet} from '../wailsjs/go/main/App';
+const inTE = document.getElementById("inTE");
+const outTE = document.getElementById("outTE");
+const modeSelect = document.getElementById("modeSelect");
 
-document.querySelector('#app').innerHTML = `
-    <img id="logo" class="logo">
-      <div class="result" id="result">Please enter your name below 👇</div>
-      <div class="input-box" id="input">
-        <input class="input" id="name" type="text" autocomplete="off" />
-        <button class="btn" onclick="greet()">Greet</button>
-      </div>
-    </div>
-`;
-document.getElementById('logo').src = logo;
+// エンコードボタンの処理
+document.getElementById("btnEncode").addEventListener("click", () => {
+  const mode = parseInt(modeSelect.value, 10);
+  const input = inTE.value;
 
-let nameElement = document.getElementById("name");
-nameElement.focus();
-let resultElement = document.getElementById("result");
+  // Goの Encode メソッドを呼び出す
+  Encode(mode, input).then((result) => {
+    outTE.value = result;
+  });
+});
 
-// Setup the greet function
-window.greet = function () {
-    // Get name
-    let name = nameElement.value;
+// デコードボタンの処理
+document.getElementById("btnDecode").addEventListener("click", () => {
+  const mode = parseInt(modeSelect.value, 10);
+  const input = inTE.value;
 
-    // Check if the input is empty
-    if (name === "") return;
+  // Goの Decode メソッドを呼び出す
+  Decode(mode, input).then((result) => {
+    outTE.value = result;
+  });
+});
 
-    // Call App.Greet(name)
-    try {
-        Greet(name)
-            .then((result) => {
-                // Update result with data back from App.Greet()
-                resultElement.innerText = result;
-            })
-            .catch((err) => {
-                console.error(err);
-            });
-    } catch (err) {
-        console.error(err);
-    }
-};
+// クリアボタンの処理
+document.getElementById("btnClear").addEventListener("click", () => {
+  inTE.value = "";
+  outTE.value = "";
+});
